@@ -25,7 +25,7 @@ apply plugin: 'jsonschema2pojo'
 
 final def projectGroup = "net.jacobpeterson"
 final def projectArtifactID = "iqfeed4j"
-final def projectVersion = "6.2-1.7.1-SNAPSHOT"
+final def projectVersion = "6.2-2.0.0-SNAPSHOT"
 
 group = projectGroup
 version = projectVersion
