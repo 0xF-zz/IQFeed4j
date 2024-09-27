@@ -206,7 +206,7 @@ public class OptionChainsFeed extends AbstractLookupFeed {
                     Integer.parseInt("20" + csvValue.substring(yearBeginIndex, yearEndIndex)),
                     MonthHelper.mapFutureMonth(
                             FutureMonth.fromValue(String.valueOf(csvValue.charAt(monthCodeCharIndex)))), // Month
-                    0)); // Day
+                    1)); // Day
         }
 
         /**
