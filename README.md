@@ -1,8 +1,8 @@
 <p align="center"><a href="https://petersoj.github.io/IQFeed4j/" target="_blank"><img src="https://i.imgur.com/4Gx8Y25.png" alt="Logo"></a></p>
 <p align="center">
+    <a href="https://github.com/Petersoj/IQFeed4j" target="_blank"><img alt="GitHub Repository" src="https://img.shields.io/badge/GitHub-000000?logo=github"></a>
     <a href="https://search.maven.org/artifact/net.jacobpeterson/iqfeed4j" target="_blank"><img alt="Maven Central" src="https://img.shields.io/maven-central/v/net.jacobpeterson/iqfeed4j"></a>
     <a href="https://javadoc.io/doc/net.jacobpeterson/iqfeed4j" target="_blank"><img src="https://javadoc.io/badge/net.jacobpeterson/iqfeed4j.svg" alt="Javadocs"></a>
-    <a href="https://travis-ci.com/github/Petersoj/IQFeed4j" target="_blank"><img src="https://travis-ci.com/Petersoj/IQFeed4j.svg?branch=6.2" alt="Build Status"></a>
     <a href="https://opensource.org/licenses/MIT" target="_blank"><img alt="Github License" src="https://img.shields.io/github/license/petersoj/IQFeed4j"></a>
 </p>
 
