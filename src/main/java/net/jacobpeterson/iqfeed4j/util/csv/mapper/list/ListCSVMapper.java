@@ -10,8 +10,6 @@ import java.util.regex.Pattern;
 import static net.jacobpeterson.iqfeed4j.util.csv.CSVUtil.valueNotWhitespace;
 
 /**
- * {@inheritDoc}
- * <br>
  * {@link ListCSVMapper} maps a CSV list to a POJO {@link List}.
  */
 public class ListCSVMapper<T> extends AbstractListCSVMapper<T> {
@@ -41,8 +39,7 @@ public class ListCSVMapper<T> extends AbstractListCSVMapper<T> {
     }
 
     /**
-     * {@inheritDoc}
-     * <br>
+         * <br>
      * Note: this will map to a list of POJOs with the {@link #csvValueConsumer} applied.
      */
     @Override

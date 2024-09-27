@@ -7,8 +7,6 @@ import net.jacobpeterson.iqfeed4j.util.csv.mapper.CSVMappingException;
 import java.util.function.Supplier;
 
 /**
- * {@inheritDoc}
- * <br>
  * {@link AbstractIndexCSVMapper} mappings are based off of predefined CSV indices.
  */
 public abstract class AbstractIndexCSVMapper<T> extends AbstractCSVMapper<T> {

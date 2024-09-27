@@ -12,8 +12,6 @@ import java.util.function.Supplier;
 import static net.jacobpeterson.iqfeed4j.util.csv.CSVUtil.valueNotWhitespace;
 
 /**
- * {@inheritDoc}
- * <br>
  * {@link NestedListCSVMapper} mappings are based on a nested CSV lists inside a CSV list (e.g. a group of 3 CSV values
  * that repeated in a CSV list).
  */
@@ -75,8 +73,7 @@ public class NestedListCSVMapper<T> extends AbstractListCSVMapper<T> {
     }
 
     /**
-     * {@inheritDoc}
-     * <br>
+         * <br>
      * Note: this will map to a list of POJOs using the mappings added via
      * {@link #setMapping(int, BiConsumer, Function)}. This will iterate through the list at {@link #nestedListLength}
      * length.

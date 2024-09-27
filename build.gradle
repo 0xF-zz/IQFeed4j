@@ -1,34 +1,34 @@
-import com.bmuschko.gradle.nexus.ExtraArchivePlugin
 import org.jsonschema2pojo.gradle.GenerateJsonSchemaJavaTask
 
 buildscript {
     repositories {
         mavenCentral()
     }
-
     dependencies {
-        // For Maven and Maven Central support
-        classpath group: 'com.bmuschko', name: 'gradle-nexus-plugin', version: '2.3.1'
         // For JSONSchema2POJO
         classpath group: 'org.jsonschema2pojo', name: 'jsonschema2pojo-gradle-plugin', version: 'latest.integration'
     }
 }
 
 plugins {
-    id 'java'
+    id "java"
+    id "java-library"
 
-    // For Maven and Maven Central support
-    id 'maven-publish'
-    id 'com.bmuschko.nexus' version '2.3.1'
-    id 'io.codearte.nexus-staging' version '0.11.0'
+    // For Maven Central publishing
+    id "maven-publish"
+    id "signing"
 }
 
 // 'apply' here instead of in plugins closure because 'jsonschema2pojo' doesn't exist in the
 // Gradle Central Plugin Repository (it's only in Maven central).
 apply plugin: 'jsonschema2pojo'
 
-group 'net.jacobpeterson'
-version '6.2-1.7.1-SNAPSHOT'
+final def projectGroup = "net.jacobpeterson"
+final def projectArtifactID = "iqfeed4j"
+final def projectVersion = "6.2-1.7.1-SNAPSHOT"
+
+group = projectGroup
+version = projectVersion
 
 repositories {
     mavenCentral()
@@ -52,79 +52,73 @@ dependencies {
     implementation group: 'org.apache.commons', name: 'commons-pool2', version: '2.11.1'
 }
 
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
-[compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
+java {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+    withJavadocJar()
+    withSourcesJar()
+}
+[compileJava, compileTestJava]*.options*.encoding = "UTF-8"
 
 javadoc {
-    // Explicitly define source version
-    options.addStringOption('source', '8')
-    // Used to suppress Javadoc linting warnings
-    options.addStringOption('Xdoclint:none', '-quiet')
-    // Explicitly define Charset for Javadocs
-    options.addStringOption('charset', 'UTF-8')
-    // Add Java SE 8 link
-    options.addStringOption('link', 'https://docs.oracle.com/javase/8/docs/api/')
+    options.addStringOption("source", "17")
+    options.addStringOption("charset", "UTF-8")
+    options.addStringOption("Xdoclint:none", "-quiet") // Suppress Javadoc linting warnings
+    options.addStringOption("link", "https://docs.oracle.com/en/java/javase/17/docs/api/")
 }
 
 //
-// START Publishing
+// BEGIN Publishing
 //
-modifyPom {
-    project {
-        name = 'IQFeed4j'
-        description = 'A Java API for the market data vendor DTN IQFeed.'
-        url = 'https://github.com/Petersoj/IQFeed4j'
-        inceptionYear = '2021'
 
-        licenses {
-            license {
-                name = 'MIT License'
-                url = 'https://opensource.org/licenses/MIT'
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            groupId = projectGroup
+            artifactId = projectArtifactID
+            version = projectVersion
+            from(components["java"])
+            pom {
+                name = projectArtifactID
+                description = "A Java API for the market data vendor DTN IQFeed."
+                url = "https://github.com/Petersoj/IQFeed4j"
+                inceptionYear = "2021"
+                licenses {
+                    license {
+                        name = "MIT License"
+                        url = "https://opensource.org/licenses/MIT"
+                    }
+                }
+                developers {
+                    developer {
+                        id = "Petersoj"
+                        name = "Jacob Peterson"
+                    }
+                }
+                scm {
+                    url = "https://github.com/Petersoj/IQFeed4j.git"
+                    connection = "scm:git:https://github.com/Petersoj/IQFeed4j.git"
+                    developerConnection = "scm:git:git@github.com/Petersoj/IQFeed4j.git"
+                }
             }
         }
-
-        developers {
-            developer {
-                id = 'Petersoj'
-                name = 'Jacob Peterson'
+    }
+    repositories {
+        maven {
+            name = "OSSRH"
+            url = projectVersion.contains("SNAPSHOT") ? "https://oss.sonatype.org/content/repositories/snapshots/" :
+                    "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
+            credentials {
+                username = project.property("nexus.username")
+                password = project.property("nexus.password")
             }
-        }
-
-        scm {
-            url = 'https://github.com/Petersoj/IQFeed4j.git'
-            connection = 'scm:git:https://github.com/Petersoj/IQFeed4j.git'
-            developerConnection = 'scm:git:git@github.com/Petersoj/IQFeed4j.git'
         }
     }
 }
-
-extraArchive {
-    sources = true
-    tests = true
-    javadoc = true
+signing {
+    sign publishing.publications.mavenJava
 }
 
-// Lowercase all archive names
-afterEvaluate {
-    jar.archiveBaseName.set(jar.archiveBaseName.get().toLowerCase())
-    for (taskName in [ExtraArchivePlugin.SOURCES_JAR_TASK_NAME,
-                      ExtraArchivePlugin.TESTS_JAR_TASK_NAME,
-                      ExtraArchivePlugin.JAVADOC_JAR_TASK_NAME]) {
-        final def taskArchiveBaseName = ((org.gradle.jvm.tasks.Jar) tasks.getByName(taskName)).archiveBaseName
-        taskArchiveBaseName.set(taskArchiveBaseName.get().toLowerCase())
-    }
-}
-
-nexus {
-    sign = true
-    repositoryUrl = 'https://oss.sonatype.org/service/local/staging/deploy/maven2/'
-    snapshotRepositoryUrl = 'https://oss.sonatype.org/content/repositories/snapshots/'
-}
-
-nexusStaging {
-    packageGroup = 'net.jacobpeterson'
-}
 //
 // END Publishing
 //
@@ -199,6 +193,18 @@ jsonSchema2Pojo {
     includeGetters = true
     includeSetters = true
 }
+
+javadocJar.dependsOn generatePOJOs
+sourcesJar.dependsOn generatePOJOs
+jar.dependsOn compileJava
+javadocJar.dependsOn compileJava
+sourcesJar.dependsOn compileJava
+tasks.jar {
+    manifest {
+        attributes(Map.of("Automatic-Module-Name", "$projectGroup.$projectArtifactID"))
+    }
+}
+
 //
 // END POJO generation
 //

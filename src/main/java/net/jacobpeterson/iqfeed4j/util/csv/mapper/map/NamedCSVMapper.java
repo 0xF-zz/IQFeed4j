@@ -13,8 +13,6 @@ import java.util.function.Supplier;
 import static net.jacobpeterson.iqfeed4j.util.csv.CSVUtil.valueNotWhitespace;
 
 /**
- * {@inheritDoc}
- * <br>
  * {@link NamedCSVMapper} mappings are based off of named CSV indices.
  */
 public class NamedCSVMapper<T> extends AbstractCSVMapper<T> {

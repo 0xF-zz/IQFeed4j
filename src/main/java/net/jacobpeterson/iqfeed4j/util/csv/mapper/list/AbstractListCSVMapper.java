@@ -8,8 +8,6 @@ import java.util.List;
 import java.util.function.Supplier;
 
 /**
- * {@inheritDoc}
- * <br>
  * {@link AbstractListCSVMapper} maps a CSV list.
  */
 public abstract class AbstractListCSVMapper<T> extends AbstractCSVMapper<T> {

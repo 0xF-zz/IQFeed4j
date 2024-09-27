@@ -11,7 +11,6 @@ import java.util.function.Supplier;
 import static net.jacobpeterson.iqfeed4j.util.csv.CSVUtil.valueNotWhitespace;
 
 /**
- * {@inheritDoc}
  */
 public class IndexCSVMapper<T> extends AbstractIndexCSVMapper<T> {
 
@@ -109,8 +108,7 @@ public class IndexCSVMapper<T> extends AbstractIndexCSVMapper<T> {
     }
 
     /**
-     * {@inheritDoc}
-     * <br>
+         * <br>
      * Note this will map with the mappings added via {@link #setMapping(int, BiConsumer, Function)}.
      */
     @Override

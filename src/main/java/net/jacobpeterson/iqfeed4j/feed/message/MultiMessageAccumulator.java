@@ -7,8 +7,6 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
 /**
- * {@inheritDoc}
- * <br>
  * This will accumulate all data/messages in memory to be consumed later.
  */
 public class MultiMessageAccumulator<T> extends MultiMessageListener<T> {

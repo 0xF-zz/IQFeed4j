@@ -7,8 +7,6 @@ import java.util.function.Function;
 import static net.jacobpeterson.iqfeed4j.util.csv.CSVUtil.valueNotWhitespace;
 
 /**
- * {@inheritDoc}
- * <br>
  * {@link DirectIndexCSVMapper} mappings are based off of predefined CSV indices, but without any POJO instantiation and
  * rather uses direct type conversion.
  */
@@ -32,8 +30,7 @@ public class DirectIndexCSVMapper<T> extends AbstractIndexCSVMapper<T> {
     }
 
     /**
-     * {@inheritDoc}
-     * <br>
+         * <br>
      * Note: this will map to a type using the {@link #stringToTypeConverter}.
      */
     @Override

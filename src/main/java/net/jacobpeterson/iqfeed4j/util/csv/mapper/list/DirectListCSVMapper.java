@@ -9,8 +9,6 @@ import java.util.function.Supplier;
 import static net.jacobpeterson.iqfeed4j.util.csv.CSVUtil.valueNotWhitespace;
 
 /**
- * {@inheritDoc}
- * <br>
  * {@link DirectListCSVMapper} maps a CSV list to a {@link List} using a direct type conversion.
  */
 public class DirectListCSVMapper<T> extends AbstractListCSVMapper<T> {
@@ -34,8 +32,7 @@ public class DirectListCSVMapper<T> extends AbstractListCSVMapper<T> {
     }
 
     /**
-     * {@inheritDoc}
-     * <br>
+         * <br>
      * Note: this will map to a list with the {@link #stringToTypeConverter} applied.
      */
     @Override

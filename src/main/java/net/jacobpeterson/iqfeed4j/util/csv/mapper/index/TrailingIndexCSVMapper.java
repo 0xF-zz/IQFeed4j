@@ -12,8 +12,6 @@ import static net.jacobpeterson.iqfeed4j.util.csv.CSVUtil.valueExists;
 import static net.jacobpeterson.iqfeed4j.util.csv.CSVUtil.valueNotWhitespace;
 
 /**
- * {@inheritDoc}
- * <br>
  * {@link TrailingIndexCSVMapper} mappings are based off of predefined CSV indices, but with the ability to add a CSV
  * mapping that accumulates all CSV values after a certain index into one mapping.
  */
@@ -83,8 +81,7 @@ public class TrailingIndexCSVMapper<T> extends AbstractIndexCSVMapper<T> {
     }
 
     /**
-     * {@inheritDoc}
-     * <br>
+         * <br>
      * Note this will map with the mappings added via {@link #setMapping(int, BiConsumer, Function)} and
      * {@link #setTrailingMapping(BiConsumer, Function)}.
      */
